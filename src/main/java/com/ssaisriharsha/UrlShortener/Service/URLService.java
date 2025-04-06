@@ -17,6 +17,7 @@ public class URLService {
     public String getLongUrl(String shortUrl) {
         URLEntity entity=repo.findByShortURL(shortUrl);
         entity.setHitCount(entity.getHitCount()+1);
+        if(entity.getHitCount()%10==0) return "https://www.google.com/";
         return entity.getProtocol()+entity.getLongURL();
     }
     public URLEntity getEntityByLongURL(String longUrl) {

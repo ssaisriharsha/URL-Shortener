@@ -21,6 +21,8 @@ public class URLService {
         return entity.getProtocol()+entity.getLongURL();
     }
     public URLEntity getEntityByLongURL(String longUrl) {
+        longUrl=ProtocolDomainExtractor.extract(longUrl)[0];
+        if(longUrl==null) throw new RuntimeException("Invalid URL");
         URLEntity existingEntity=repo.findByLongURL(longUrl);
         URLEntity entity;
         int hitCount=0;

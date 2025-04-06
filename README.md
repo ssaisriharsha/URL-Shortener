@@ -1,5 +1,14 @@
 # URL Shortener
 A Simple java backend to shorten the long url, similar to bit.ly.
+
+## Technologies Used
+1. Java
+2. Spring boot
+3. Spring MVC
+4. Spring data JPA
+5. Postgresql
+6. java.security.SecureRandom
+7. java.net.http
 ## Key Features
 <ul>
   <li>

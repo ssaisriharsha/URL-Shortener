@@ -8,7 +8,7 @@ public class ShortURLGenerator {
     private static final SecureRandom random=new SecureRandom();
     private static final int shortUrlLength=10;
     public static String generate() {
-        StringBuffer sb=new StringBuffer();
+        StringBuilder sb=new StringBuilder();
         for(int i=0; i<shortUrlLength; i++) {
             sb.append(characters.charAt(random.nextInt(characters.length())));
         }

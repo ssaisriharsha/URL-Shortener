@@ -7,6 +7,8 @@ import com.ssaisriharsha.UrlShortener.Utilities.ShortURLGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class URLService {
     private final URLRepo repo;
@@ -20,10 +22,12 @@ public class URLService {
         if(entity.getHitCount()%10==0) return "https://www.google.com/";
         return entity.getProtocol()+entity.getLongURL();
     }
+    @Transactional
     public URLEntity getEntityByLongURL(String longUrl) {
-        longUrl=ProtocolDomainExtractor.extract(longUrl)[0];
-        if(longUrl==null) throw new RuntimeException("Invalid URL");
-        URLEntity existingEntity=repo.findByLongURL(longUrl);
+        Optional<String[]> urlArray=ProtocolDomainExtractor.extract(longUrl);
+        longUrl=urlArray.orElseThrow(()->new RuntimeException("Invalid URL"))[0];
+        String protocol=urlArray.orElseThrow(()->new RuntimeException("Invalid URL"))[1];
+        URLEntity existingEntity=repo.findByLongURLAndProtocol(longUrl, protocol);
         URLEntity entity;
         int hitCount=0;
         String shortURL;
@@ -34,18 +38,13 @@ public class URLService {
             entity=new URLEntity();
             entity.setShortURL(shortURL);
             entity.setHitCount(hitCount);
-            String[] domainProtocol= ProtocolDomainExtractor.extract(longUrl);
-            assert domainProtocol != null;
+            String[] domainProtocol= urlArray.get();
             entity.setLongURL(domainProtocol[0]);
             if(domainProtocol[1]!=null) entity.setProtocol(domainProtocol[1]);
-            saveEntity(entity);
+            repo.save(entity);
         }
         else entity=existingEntity;
         return entity;
-    }
-    @Transactional
-    public void saveEntity(URLEntity entity) {
-        repo.save(entity);
     }
     public URLEntity getEntityByShortURL(String shortUrl) {
         return repo.findByShortURL(shortUrl);

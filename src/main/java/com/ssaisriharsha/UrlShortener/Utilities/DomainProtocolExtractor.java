@@ -4,7 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-public class ProtocolDomainExtractor {
+public class DomainProtocolExtractor {
     public static Optional<String[]> extract(String url) {
         try {
             URI uri = new URI(url);

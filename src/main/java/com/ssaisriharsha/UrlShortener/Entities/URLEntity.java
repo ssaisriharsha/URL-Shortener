@@ -1,32 +1,29 @@
 package com.ssaisriharsha.UrlShortener.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
 @Table(name="urltable")
 public class URLEntity {
     @Id
-    @NonNull
+    @NotNull
     @Column(name="shorturl")
     private String shortURL;
-
     @Column(name="longurl")
-    @NonNull
+    @NotNull
+    @URL
     private String longURL;
-
     @Column(name="hitcount")
-    @NonNull
+    @NotNull
     private int hitCount;
-
     @Column(name="protocol")
-    private String protocol;
-
-
+    private String protocol="https://";
+    @ManyToOne
+    @JoinColumn(name="username")
+    private AppUser user;
 }

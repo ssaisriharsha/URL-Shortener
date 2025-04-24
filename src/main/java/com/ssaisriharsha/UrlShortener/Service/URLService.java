@@ -2,7 +2,7 @@ package com.ssaisriharsha.UrlShortener.Service;
 
 import com.ssaisriharsha.UrlShortener.Entities.URLEntity;
 import com.ssaisriharsha.UrlShortener.Repository.URLRepo;
-import com.ssaisriharsha.UrlShortener.Utilities.ProtocolDomainExtractor;
+import com.ssaisriharsha.UrlShortener.Utilities.DomainProtocolExtractor;
 import com.ssaisriharsha.UrlShortener.Utilities.ShortURLGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class URLService {
     }
     @Transactional
     public URLEntity getEntityByLongURL(String longUrl) {
-        Optional<String[]> urlArray=ProtocolDomainExtractor.extract(longUrl);
+        Optional<String[]> urlArray= DomainProtocolExtractor.extract(longUrl);
         longUrl=urlArray.orElseThrow(()->new RuntimeException("Invalid URL"))[0];
         String protocol=urlArray.orElseThrow(()->new RuntimeException("Invalid URL"))[1];
         URLEntity existingEntity=repo.findByLongURLAndProtocol(longUrl, protocol);

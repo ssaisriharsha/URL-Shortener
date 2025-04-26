@@ -3,7 +3,8 @@ package com.ssaisriharsha.UrlShortener.Entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.validator.constraints.URL;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -16,14 +17,15 @@ public class URLEntity {
     private String shortURL;
     @Column(name="longurl")
     @NotNull
-    @URL
     private String longURL;
     @Column(name="hitcount")
     @NotNull
     private int hitCount;
     @Column(name="protocol")
-    private String protocol="https://";
+    private String protocol="https";
     @ManyToOne
     @JoinColumn(name="username")
     private AppUser user;
+    @Column(name="createdOn")
+    private final LocalDateTime createdOn=LocalDateTime.now();
 }

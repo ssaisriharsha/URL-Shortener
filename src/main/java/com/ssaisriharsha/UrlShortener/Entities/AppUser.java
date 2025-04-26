@@ -1,5 +1,6 @@
 package com.ssaisriharsha.UrlShortener.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -28,5 +29,6 @@ public class AppUser {
     @Email
     private String email;
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<URLEntity> UrlEntities;
 }

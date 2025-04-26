@@ -8,7 +8,7 @@ public class DomainProtocolExtractor {
     public static Optional<String[]> extract(String url) {
         try {
             URI uri = new URI(url);
-            String protocol=uri.getScheme()+"://";
+            String protocol=uri.getScheme();
             String domain=uri.getSchemeSpecificPart().replace("//", "");
             return Optional.of(new String[]{domain, protocol});
         }

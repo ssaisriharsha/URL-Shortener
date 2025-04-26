@@ -7,6 +7,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,7 +19,7 @@ public class SecurityConfig {
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new Argon2PasswordEncoder(16, 48, Runtime.getRuntime().availableProcessors(), 64, 32768);
+        return new BCryptPasswordEncoder();
     }
     @Bean
     public SecurityFilterChain sfcConfig(HttpSecurity http) throws Exception {
@@ -29,6 +30,8 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(
                         auth->auth
+                                .requestMatchers("/api/signup").permitAll()
+                                .requestMatchers("/api/redirect/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(

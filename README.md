@@ -17,7 +17,6 @@ A simple Java backend to shorten long URLs, similar to [bit.ly](https://bit.ly).
 - Takes any long URL as input, shortens it, and returns the short URL.
 - Maintains the record of how many times the URL is clicked, allowing the user to view analytics.
 - For every 5 clicks, the short URL redirects to [google.com](https://google.com). This mechanism can be replaced and utilized to display ads for monetization, if needed.
-- CORS is implemented by default. You can simply download the JAR file from the releases, run it, and integrate it with your frontend.
 
 ## API Documentation
 

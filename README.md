@@ -16,7 +16,7 @@ It supports **user authentication**, **unique URL mapping per user**, **analytic
 - **Ad Redirection** after every 5 hits
 - **User Profile API** (see your own URLs and stats)
 - **Pagination** support for URL listings
-- **Link Expiry** (coming soon 🕰️)
+- **Link Expiry**
 
 ---
 
@@ -61,18 +61,18 @@ It supports **user authentication**, **unique URL mapping per user**, **analytic
 
 | Method | Endpoint | Description |
 |:------:|:---------|:-------------|
-| `POST` | `/api/url` | Create a new short URL |
-| `GET` | `/api/url/{shortUrl}` | Redirect to original URL |
-| `GET` | `/api/user/profile` | Get your profile and URLs |
-| `GET` | `/api/user/urls` | Get paginated list of your URLs |
+| `POST` | `/api/signup` | Create new user |
+| `POST` | `/api/shorten` | Create a new short URL |
+| `GET` | `/api/redirect/{shortUrl}` | Redirect to original URL |
+| `GET` | `/api/profile` | Get your profile and URLs |
+| `GET` | `/api/myurls` | Get paginated list of your URLs |
 
 ---
 
 ## 🧠 Future Improvements
 - ✅ Add JWT Authentication
-- ✅ Link Expiry feature
 - ✅ Customizable ad redirection
-- ✅ Role-based access (admin panel)
+
 
 ---
 
